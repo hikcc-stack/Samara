@@ -6,57 +6,135 @@ const router = useRouter()
 
 // логика слайдера кирпичей
 import { ref, onMounted, onUnmounted } from 'vue'
-
+//наполнение слайдера
 const slides = [
   {
     img: new URL('../assets/images/slider-1.svg', import.meta.url).href,
     sub: 'ВСЕ ВИДЫ', title: 'КИРПИЧА', city: 'В САМАРЕ',
-    tags: ['Цокольный', 'Облицовочный', 'Печной', 'Шамотный', 'Ручной формовки', 'Силикатный']
+    tags:[
+        { text: 'Цокольный',
+          icon: new URL('../assets/images/slider-icons/cokol-icon.svg', import.meta.url).href},
+        { text: 'Облицовочный',
+          icon: new URL('../assets/images/slider-icons/oblic-icon.svg', import.meta.url).href} ,
+        { text: 'Печной',
+          icon: new URL('../assets/images/slider-icons/pechnoi-icon.svg', import.meta.url).href} ,
+        { text: 'Шамотный',
+          icon: new URL('../assets/images/slider-icons/shamot-icon.svg', import.meta.url).href} ,
+        { text: 'Ручной формовки',
+          icon: new URL('../assets/images/slider-icons/ruchnoi-icon.svg', import.meta.url).href} ,
+        { text: 'Силикатный',
+          icon: new URL('../assets/images/slider-icons/silikat-icon.svg', import.meta.url).href},
+        ]
   },
   {
     img: new URL('../assets/images/slider-2.svg', import.meta.url).href,
     sub: 'СТРОИТЕЛЬНЫЕ БЛОКИ', title: 'ГАЗОБЕТОН', city: 'В САМАРЕ',
-    tags: ['Для дома', 'Для бани', 'Для перегородок']
+    tags:
+        [ { text: 'Для дома',
+            icon: new URL('../assets/images/slider-icons/forhome-icon.svg', import.meta.url).href},
+          { text: 'Для бани',
+            icon: new URL('../assets/images/slider-icons/forbanya-icon.svg', import.meta.url).href},
+          { text: 'Для перегородок',
+            icon: new URL('../assets/images/slider-icons/forperegorodki-icon.svg', import.meta.url).href},]
   },
   {
     img: new URL('../assets/images/slider-3.svg', import.meta.url).href,
     sub: 'СТРОИТЕЛЬНЫЕ БЛОКИ', title: 'КЕРАКАМ И КАЙМАН', city: 'В САМАРЕ',
-    tags: ['Не требует утепления', 'Экологически чистые', 'Удобные в монтаже', 'Недорогие']
+    tags: [
+        { text:'Не требует утепления',
+          icon: new URL('../assets/images/slider-icons/uteplenie-icon.svg', import.meta.url).href },
+        { text:'Экологически чистые',
+          icon: new URL('../assets/images/slider-icons/ecoclear.svg', import.meta.url).href},
+        { text:'Удобные в монтаже',
+          icon: new URL('../assets/images/slider-icons/easymontaj.svg', import.meta.url).href},
+        { text:'Недорогие',
+          icon: new URL('../assets/images/slider-icons/nedorogie.svg', import.meta.url).href}]
   },
   {
     img: new URL('../assets/images/slider-4.svg', import.meta.url).href,
     sub: 'ОБЛИЦОВОЧНАЯ ПЛИТКА', title: 'ДЕКОРОТИВНАЯ И ФАСАДНАЯ',
-    tags: ['Облицовочные камень для фасада иинтерьера', 'Фасадная клинкерная плитка']
+    tags: [
+        {text:'Облицовочные камень для фасада иинтерьера',
+         icon: new URL('../assets/images/slider-icons/forfasade.svg', import.meta.url).href },
+        { text:'Фасадная клинкерная плитка',
+          icon: new URL('../assets/images/slider-icons/fasadeplitka.svg', import.meta.url).href}]
   },
   {
     img: new URL('../assets/images/slider-5.svg', import.meta.url).href,
     sub: 'НАДЁЖНАЯ И НЕДОРОГАЯ', title: 'КРОВЛЯ', city: 'В САМАРЕ',
-    tags: ['Мягкая кровля', 'Металлочерепица', 'Минеральная черепица', 'Керамическая черепица']
+    tags: [
+      { text: 'Мягкая кровля',
+        icon: new URL('../assets/images/slider-icons/softcrovlya.svg', import.meta.url).href },
+      { text: 'Металлочерепица',
+        icon: new URL('../assets/images/slider-icons/metallocherepica.svg', import.meta.url).href} ,
+      { text: 'Минеральная черепица',
+        icon: new URL('../assets/images/slider-icons/mineralcherepica.svg', import.meta.url).href },
+      { text: 'Керамическая черепица',
+        icon: new URL('../assets/images/slider-icons/keramocherepica.svg', import.meta.url).href }]
   },
   {
     img: new URL('../assets/images/slider-6.svg', import.meta.url).href,
-    sub: 'СТРОИТЕЛЬНЫЕ', title: 'СУХИЕ СМЕСИ', city: 'В МКШКАХ',
-    tags: ['Штукатурка', 'Шпатлевка', 'Печные смеси', 'Клей для газобетона', 'Клей для плитки', 'Цветные кладочные смеси']
+    sub: 'СТРОИТЕЛЬНЫЕ', title: 'СУХИЕ СМЕСИ', city: 'В МЕШКАХ',
+    tags: [
+        {text:'Штукатурка',
+          icon: new URL('../assets/images/slider-icons/shtukaturka.svg', import.meta.url).href},
+        { text:'Шпатлевка',
+          icon: new URL('../assets/images/slider-icons/shaptlevka.svg', import.meta.url).href},
+        { text:'Печные смеси',
+          icon: new URL('../assets/images/slider-icons/pechnue.svg', import.meta.url).href},
+        { text: 'Клей для газобетона' ,
+          icon: new URL('../assets/images/slider-icons/forgazobeton.svg', import.meta.url).href},
+        { text:'Клей для плитки',
+          icon: new URL('../assets/images/slider-icons/forplitka.svg', import.meta.url).href},
+        { text:'Цветные кладочные смеси',
+          icon: new URL('../assets/images/slider-icons/kladochnue.svg', import.meta.url).href}]
   },
   {
     img: new URL('../assets/images/slider-7.svg', import.meta.url).href,
     sub: 'СТРОИТЕЛЬНЫЙ', title: 'ЦЕМЕНТ', city: 'В МЕШКАХ',
-    tags: ['Цемент 25 кг', 'Цемент 40 кг', 'Цемент 50 кг', 'Цементно-песчаная смесь']
+    tags: [
+        { text:'Цемент 25 кг',
+          icon: new URL('../assets/images/slider-icons/cement-icon.svg', import.meta.url).href},
+        { text:'Цемент 40 кг',
+          icon: new URL('../assets/images/slider-icons/cement-icon.svg', import.meta.url).href},
+        { text:'Цемент 50 кг',
+          icon: new URL('../assets/images/slider-icons/cement-icon.svg', import.meta.url).href},
+        { text: 'Цементно-песчаная смесь',
+          icon: new URL('../assets/images/slider-icons/cement-icon.svg', import.meta.url).href}]
   },
   {
     img: new URL('../assets/images/slider-8.svg', import.meta.url).href,
     sub: 'ПЛИТКА И БРУСТЧАТКА', title: 'ТРОТУАРНАЯ', city: 'В САМАРЕ',
-    tags: ['Тротуарная плитка', 'Брусчатка клинкерная', 'Бордюры', 'Доска террасная']
+    tags: [
+        { text:'Тротуарная плитка',
+          icon: new URL('../assets/images/slider-icons/trotyarplitka.svg', import.meta.url).href},
+        { text:'Брусчатка клинкерная',
+          icon: new URL('../assets/images/slider-icons/bruschatka.svg', import.meta.url).href},
+        { text: 'Бордюры',
+          icon: new URL('../assets/images/slider-icons/bordur.svg', import.meta.url).href} ,
+        { text:'Доска террасная',
+          icon: new URL('../assets/images/slider-icons/doskateras.svg', import.meta.url).href}]
   },
 ]
-
+// работа стрелок слайдера
 const current = ref(0)
 const prev = () => current.value = (current.value - 1 + slides.length) % slides.length
 const next = () => current.value = (current.value + 1) % slides.length
-
+// интервал самостоятельного перехода на другой слайд
 let timer
 onMounted(() => { timer = setInterval(next, 5000) })
 onUnmounted(() => clearInterval(timer))
+
+// форма в слайдере локации
+const phone = ref('')
+const formOpen = ref(false) // раскрыта ли форма
+const locations = [
+    'База "на Алма-Атинской"',
+    'База "в Преображенкее"',
+    'Офис "на Садовой"',
+    'Офис "на Амбаре"',
+]
+const selectedLocation = ref('Офис "на Садовой"')
 </script>
 
 <template>
@@ -66,26 +144,27 @@ onUnmounted(() => clearInterval(timer))
       <div class="menu-right">
         <div class="job-right">
           <img src="../assets/images/pin.svg" alt="pin">
-          <p>Работаем в самаре с 2007 г.</p>
+          <p>Работаем в Самаре с 2007 г.</p>
         </div>
         <div class="menu-right-links">
           <p @click="router.push('/')">Главная</p>
           <p @click="router.push('/about_company')">О компании</p>
+          <p @click="router.push('/delivery')">Доставка</p>
+          <div class="reviews-block">
+            <p @click="router.push('/reviews')">Отзывы</p>
+            <span class="badge-reviews">452</span>
+          </div>
+          <p @click="router.push('/how_order')">Как сделать заказ</p>
         </div>
-      </div>
-      <div class="middle">
-        <p @click="router.push('/delivery')">Доставка</p>
-        <p @click="router.push('/reviews')">Отзывы</p>
-        <p @click="router.push('/how_order')">Как сделать заказ</p>
       </div>
       <div class="menu-left">
         <div class="time">
           <img src="../assets/images/clock.svg" alt="clock"/>
-          <p>контакт центр <br> с 8:00 до 19:00</p>
+          <p>контакт-центр <br> с 8:00 до 19:00</p>
         </div>
         <img src="../assets/images/Telegram.svg" alt="telegram"/>
         <div class="menu-number-list">
-          <label for="numb">8 (955) 888-08-08</label>
+          <label for="numb">8 (995) 888-08-08</label>
           <select class="numbers" name="numbers" id="numb">
 
           </select>
@@ -150,15 +229,16 @@ onUnmounted(() => clearInterval(timer))
             <h2 class="slide-title">{{ slide.title }}</h2>
             <p class="slide-city">{{ slide.city }}</p>
             <div class="slide-tags">
-            <span v-for="tag in slide.tags" :key="tag">
-              <img src="../assets/images/pin.svg" alt="">{{ tag }}
+            <span v-for="tag in slide.tags" :key="tag.text">
+              <img class="tag-icon" :src="tag.icon" alt="">{{ tag.text }}
             </span>
             </div>
           </div>
+          <!-- форма в слайдере -->
           <div class="slide-form">
             <p>Укажите свой номер телефона:</p>
             <div class="slide-form-row">
-              <input type="tel" placeholder="+7">
+              <input type="tel" placeholder="+7" v-model="phone" @focus="formOpen = true">
               <button>Отправить</button>
             </div>
             <p class="slide-form-note">
@@ -166,14 +246,21 @@ onUnmounted(() => clearInterval(timer))
               Проконсультируем по любым вопросам.
               Консультация бесплатная и ни к чему вас не обязывает!
             </p>
+            <div class="slide-form-locations" v-if="formOpen">
+              <p class="locations-title">Куда отправить запрос:</p>
+              <label v-for="loc in locations" :key="loc" class="location-option">
+                <input type="radio" name="location" :value="loc" v-model="selectedLocation">
+                {{ loc }}
+              </label>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
+    <!-- стрелки слайдера -->
     <button class="slider-arrow left" @click="prev">← предыдущий</button>
     <button class="slider-arrow right" @click="next">следующий →</button>
-
+    <!-- точки под слайдерем -->
     <div class="slider-dots">
     <span
         v-for="(_, i) in slides"
@@ -208,7 +295,7 @@ nav.menu {
 .menu-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   font-family: Montserrat ;
   font-size: 14px;
   font-weight: 700;
@@ -229,18 +316,30 @@ nav.menu {
 .menu-right-links {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
+  text-transform: uppercase;
   cursor: pointer;
 }
-.middle {
+.menu-right-links {
+  margin: 0;
+  white-space: nowrap;
+}
+.reviews-block {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
-  font-family: Montserrat;
-  font-size: 14px;
+}
+.badge-reviews {
+  margin-bottom: 11px;
+  margin-left: 4px;
+  background: #FF6B35;
+  color: #fff;
+  font-family: Inter;
+  font-size: 11px;
   font-weight: 700;
-  color: #586067;
-  cursor: pointer;
+  line-height: 1.4;
+  padding: 1px 7px;
+  border-radius: 20px;
 }
 .menu-left {
   display: flex;
@@ -447,7 +546,7 @@ select.numbers {
   position: relative;
   max-width: 1660px;
   margin: 33px auto;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 12px;
 }
 
@@ -466,7 +565,7 @@ select.numbers {
   display: block;
 }
 
-.slide img {
+.slide > img {
   width: 100%;
   height: 340px;
   object-fit: cover;
@@ -508,38 +607,39 @@ select.numbers {
   font-weight: 700;
   margin: 0 0 16px;
 }
-
+/* теги слайдера */
 .slide-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 12px;
+  gap: 18px 44px;
+  max-width: 720px;
+  margin-top: 28px;
 }
-
 .slide-tags span {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
   font-family: Inter;
-  font-size: 13px;
+  font-size: 16px;
   color: #fff;
   text-decoration: underline;
   cursor: pointer;
 }
-
-.slide-tags span img {
-  width: 14px;
-  height: 14px;
+.tag-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
-
 /* форма */
 .slide-form {
   background: #ffffff;
   border-radius: 12px;
   padding: 20px;
-  max-height: 240px;
   max-width: 550px;
   flex-shrink: 0;
+  align-self: flex-start;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
 .slide-form p {
@@ -583,7 +683,55 @@ select.numbers {
   font-size: 15px !important;
   color: #606060 !important;
 }
-
+/* локации в форме*/
+.slide-form-locations {
+  margin-top: 16px;
+}
+.locations-title {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 12px;
+}
+.location-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: Inter;
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+/* кастомная круглая радио-кнопка */
+.location-option input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #c4c4c4;
+  border-radius: 50%;
+  margin: 0;
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+}
+.location-option input[type="radio"]:checked {
+  border-color: #7F9D87;
+  background: #7F9D87;
+}
+.location-option input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 11px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
 /* стрелки */
 .slider-arrow {
   position: absolute;
