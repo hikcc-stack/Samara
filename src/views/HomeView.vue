@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import slidesData from '../data/slider.json'
 import popularProductsData from '../data/popular_products.json'
 import recData from '../data/recommended_products.json'
+import revData from '../data/reviews.json'
 
 const router = useRouter()
 
@@ -87,6 +88,9 @@ const recTrack = ref(null)
 const scrollRec = () => {
   recTrack.value?.scrollBy({ left: 320, behavior: 'smooth' })
 }
+// отзывы слайдер
+const reviews = revData.items
+const reviewsCount = revData.count
 </script>
 
 <template>
@@ -287,7 +291,6 @@ const scrollRec = () => {
         {{ tab }}
       </button>
     </div>
-
     <div class="recommend-wrap">
       <div class="recommend-track" ref="recTrack">
         <div
@@ -307,6 +310,29 @@ const scrollRec = () => {
         </div>
       </div>
       <button class="recommend-arrow" @click="scrollRec">></button>
+    </div>
+  </section>
+  <!-- секция отзывов со слайдером -->
+  <section class="reviews">
+    <div class="reviews-head">
+      <h2 class="reviews-title">Отзывы покупателей</h2>
+      <span class="reviews-count">{{ reviewsCount }}</span>
+      <a class="reviews-all" @click="router.push('/reviews')">Смотреть все отзывы</a>
+    </div>
+
+    <div class="reviews-grid">
+      <div v-for="review in reviews" :key="review.name" class="review-card">
+        <p class="review-name">{{ review.name }}</p>
+        <div class="review-stars">
+        <span
+            v-for="n in 5"
+            :key="n"
+            class="star"
+            :class="{ filled: n <= review.rating }"
+        >★</span>
+        </div>
+        <p class="review-text">{{ review.text }}</p>
+      </div>
     </div>
   </section>
 </template>
@@ -1133,5 +1159,77 @@ select.numbers {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+/* отзывы покупателей */
+.reviews {
+  max-width: 1660px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.reviews-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.reviews-title {
+  font-family: Montserrat;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+.reviews-count {
+  background: #FC6904;
+  color: #fff;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  align-self: flex-start;
+}
+.reviews-all {
+  font-family: Inter;
+  font-size: 14px;
+  color: #7F9D87;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 40px;
+}
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.review-name {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+.review-stars {
+  display: flex;
+  gap: 2px;
+}
+.star {
+  font-size: 18px;
+  color: #E0E0E0;
+}
+.star.filled {
+  color: #FFB800;
+}
+.review-text {
+  font-family: Inter;
+  font-size: 14px;
+  color: #586067;
+  line-height: 1.6;
+  margin: 0;
 }
 </style>
