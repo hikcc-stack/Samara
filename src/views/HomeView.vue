@@ -3,6 +3,7 @@
 import { useRouter } from 'vue-router'
 import slidesData from '../data/slider.json'
 import popularProductsData from '../data/popular_products.json'
+import recData from '../data/recommended_products.json'
 
 const router = useRouter()
 
@@ -68,6 +69,24 @@ const productIcon = import.meta.glob('../assets/images/popularproducts-icon/*.sv
 })
 const productImg = (name) => productIcon[`../assets/images/popularproducts-icon/${name}`]
 const popularProductsList = popularProductsData
+
+
+// слайдер рекомендаций, новинок, распрадаж
+// картинки рекомендованных товаров
+const recImages = import.meta.glob('../assets/images/recommended-products/*.svg', {
+  eager: true, import: 'default',
+})
+const recImg = (name) => recImages[`../assets/images/recommended-products/${name}`]
+
+const recommendList = recData
+const recommendTabs = Object.keys(recData)
+const activeRecommend = ref('Рекомендуем')
+
+// горизонтальная прокрутка карточек
+const recTrack = ref(null)
+const scrollRec = () => {
+  recTrack.value?.scrollBy({ left: 320, behavior: 'smooth' })
+}
 </script>
 
 <template>
@@ -245,6 +264,49 @@ const popularProductsList = popularProductsData
           </div>
         </div>
       </div>
+    </div>
+  </section>
+  <!-- Доставка и оплата -->
+  <section class="delivery">
+    <div class="delivery-text">
+      <h2 class="delivery-title">Доставка и оплата</h2>
+      <p>Можем предложить доставку по Самаре и Смарской области или самовывоз из магазинов - <span class="blue-link"> смотреть подробнее</span> </p>
+    </div>
+  </section>
+  <!-- Секция слайдер рекомендаций, новинок и распродажи -->
+  <section class="recommend">
+    <div class="recommend-head">
+      <span class="recommend-stock-badge">В наличии</span>
+      <button
+          v-for="tab in recommendTabs"
+          :key="tab"
+          class="recommend-tab"
+          :class="{ active: tab === activeRecommend }"
+          @click="activeRecommend = tab"
+      >
+        {{ tab }}
+      </button>
+    </div>
+
+    <div class="recommend-wrap">
+      <div class="recommend-track" ref="recTrack">
+        <div
+            v-for="prod in recommendList[activeRecommend]"
+            :key="prod.name"
+            class="rec-card">
+          <span v-if="prod.discount" class="rec-discount">{{ prod.discount }}</span>
+          <span v-if="prod.badge" class="rec-badge">{{ prod.badge }}</span>
+          <img :src="recImg(prod.img)" :alt="prod.name" class="rec-img">
+          <p class="rec-name">{{ prod.name }}</p>
+          <p class="rec-desc">{{ prod.desc }}</p>
+          <div class="rec-prices">
+            <p class="rec-price">{{ prod.price }}</p>
+            <p v-if="prod.price2" class="rec-price2">{{ prod.price2 }}</p>
+          </div>
+          <button class="rec-cart-btn">В корзину</button>
+        </div>
+      </div>
+      <button class="recommend-arrow" @click="scrollRec">></button>
     </div>
   </section>
 </template>
@@ -755,8 +817,8 @@ select.numbers {
 }
 .description-text h2 {
   font-family: Montserrat;
-  font-size: 24px;
-  color: #333;
+  font-size: 32px;
+  color: #000000;
 }
 .description p {
   font-family: Inter;
@@ -886,5 +948,190 @@ select.numbers {
   font-weight: 700;
   color: #7F9D87;
   margin: 0;
+}
+
+/* секция с доставкой и оплатой */
+.delivery-title{
+  font-weight: bold;
+  line-height: 29px;
+  margin-bottom: 5px;
+  font-family: Montserrat;
+  font-size: 32px;
+  color: #000000;
+}
+.delivery-text p {
+  line-height: 24px;
+  font-family: Inter ;
+  font-size: 17px;
+  color: #586067;
+}
+.blue-link {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 17px;
+  color: #49A9EF;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.delivery {
+  margin-left: 110px;
+}
+/* секция слайдер рекомендаций новинок распродажи */
+.recommend {
+  max-width: 1660px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.recommend-head {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.recommend-stock-badge {
+  position: absolute;
+  top: 1420px;
+  left: 220px;
+  background: #FC6904;
+  color: #fff;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.recommend-tab {
+  background: none;
+  border: none;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 700;
+  color: #B0B0B0;
+  cursor: pointer;
+  padding: 0;
+}
+.recommend-tab.active {
+  color: #333;
+}
+
+.recommend-wrap {
+  position: relative;
+}
+.recommend-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 8px;
+}
+/* прячем скроллбар */
+.recommend-track::-webkit-scrollbar { display: none; }
+
+.rec-card {
+  position: relative;
+  flex: 0 0 240px;
+
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.rec-discount {
+  position: absolute;
+  top: 12px;
+  left: 200px;
+  background: #FC6904;
+  color: #fff;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.rec-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #FC6904;
+  color: #fff;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.rec-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.rec-name {
+  font-family: Montserrat;
+  font-size: 15px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 8px;
+}
+.rec-desc {
+  font-family: Inter;
+  font-size: 12px;
+  color: #888;
+  line-height: 1.4;
+  margin: 0 0 12px;
+  flex: 1;
+}
+.rec-prices {
+  margin-bottom: 12px;
+}
+.rec-price {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+.rec-price2 {
+  font-family: Inter;
+  font-size: 13px;
+  color: #888;
+  margin: 2px 0 0;
+}
+.rec-cart-btn {
+  background: #ffffff;
+  border: #7F9D87 1px solid;
+  color: #7F9D87;
+  border-radius: 6px;
+  padding: 10px;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.rec-cart-btn:hover {
+  background: #7F9D87;
+  color: #fff;
+}
+
+/* стрелка */
+.recommend-arrow {
+  position: absolute;
+  top: 50%;
+  transform:translateY(-50%) ;
+  right: -20px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  background: #BBD0C1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-size: 50px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
