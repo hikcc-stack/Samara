@@ -1,128 +1,31 @@
 <script setup>
 
 import { useRouter } from 'vue-router'
+import slidesData from '../data/slider.json'
 
 const router = useRouter()
 
 // логика слайдера кирпичей
 import { ref, onMounted, onUnmounted } from 'vue'
+
 //наполнение слайдера
-const slides = [
-  {
-    img: new URL('../assets/images/slider-1.svg', import.meta.url).href,
-    sub: 'ВСЕ ВИДЫ', title: 'КИРПИЧА', city: 'В САМАРЕ',
-    tags:[
-        { text: 'Цокольный',
-          icon: new URL('../assets/images/slider-icons/cokol-icon.svg', import.meta.url).href},
-        { text: 'Облицовочный',
-          icon: new URL('../assets/images/slider-icons/oblic-icon.svg', import.meta.url).href} ,
-        { text: 'Печной',
-          icon: new URL('../assets/images/slider-icons/pechnoi-icon.svg', import.meta.url).href} ,
-        { text: 'Шамотный',
-          icon: new URL('../assets/images/slider-icons/shamot-icon.svg', import.meta.url).href} ,
-        { text: 'Ручной формовки',
-          icon: new URL('../assets/images/slider-icons/ruchnoi-icon.svg', import.meta.url).href} ,
-        { text: 'Силикатный',
-          icon: new URL('../assets/images/slider-icons/silikat-icon.svg', import.meta.url).href},
-        ]
-  },
-  {
-    img: new URL('../assets/images/slider-2.svg', import.meta.url).href,
-    sub: 'СТРОИТЕЛЬНЫЕ БЛОКИ', title: 'ГАЗОБЕТОН', city: 'В САМАРЕ',
-    tags:
-        [ { text: 'Для дома',
-            icon: new URL('../assets/images/slider-icons/forhome-icon.svg', import.meta.url).href},
-          { text: 'Для бани',
-            icon: new URL('../assets/images/slider-icons/forbanya-icon.svg', import.meta.url).href},
-          { text: 'Для перегородок',
-            icon: new URL('../assets/images/slider-icons/forperegorodki-icon.svg', import.meta.url).href},]
-  },
-  {
-    img: new URL('../assets/images/slider-3.svg', import.meta.url).href,
-    sub: 'СТРОИТЕЛЬНЫЕ БЛОКИ', title: 'КЕРАКАМ И КАЙМАН', city: 'В САМАРЕ',
-    tags: [
-        { text:'Не требует утепления',
-          icon: new URL('../assets/images/slider-icons/uteplenie-icon.svg', import.meta.url).href },
-        { text:'Экологически чистые',
-          icon: new URL('../assets/images/slider-icons/ecoclear.svg', import.meta.url).href},
-        { text:'Удобные в монтаже',
-          icon: new URL('../assets/images/slider-icons/easymontaj.svg', import.meta.url).href},
-        { text:'Недорогие',
-          icon: new URL('../assets/images/slider-icons/nedorogie.svg', import.meta.url).href}]
-  },
-  {
-    img: new URL('../assets/images/slider-4.svg', import.meta.url).href,
-    sub: 'ОБЛИЦОВОЧНАЯ ПЛИТКА', title: 'ДЕКОРОТИВНАЯ И ФАСАДНАЯ',
-    tags: [
-        {text:'Облицовочные камень для фасада иинтерьера',
-         icon: new URL('../assets/images/slider-icons/forfasade.svg', import.meta.url).href },
-        { text:'Фасадная клинкерная плитка',
-          icon: new URL('../assets/images/slider-icons/fasadeplitka.svg', import.meta.url).href}]
-  },
-  {
-    img: new URL('../assets/images/slider-5.svg', import.meta.url).href,
-    sub: 'НАДЁЖНАЯ И НЕДОРОГАЯ', title: 'КРОВЛЯ', city: 'В САМАРЕ',
-    tags: [
-      { text: 'Мягкая кровля',
-        icon: new URL('../assets/images/slider-icons/softcrovlya.svg', import.meta.url).href },
-      { text: 'Металлочерепица',
-        icon: new URL('../assets/images/slider-icons/metallocherepica.svg', import.meta.url).href} ,
-      { text: 'Минеральная черепица',
-        icon: new URL('../assets/images/slider-icons/mineralcherepica.svg', import.meta.url).href },
-      { text: 'Керамическая черепица',
-        icon: new URL('../assets/images/slider-icons/keramocherepica.svg', import.meta.url).href }]
-  },
-  {
-    img: new URL('../assets/images/slider-6.svg', import.meta.url).href,
-    sub: 'СТРОИТЕЛЬНЫЕ', title: 'СУХИЕ СМЕСИ', city: 'В МЕШКАХ',
-    tags: [
-        {text:'Штукатурка',
-          icon: new URL('../assets/images/slider-icons/shtukaturka.svg', import.meta.url).href},
-        { text:'Шпатлевка',
-          icon: new URL('../assets/images/slider-icons/shaptlevka.svg', import.meta.url).href},
-        { text:'Печные смеси',
-          icon: new URL('../assets/images/slider-icons/pechnue.svg', import.meta.url).href},
-        { text: 'Клей для газобетона' ,
-          icon: new URL('../assets/images/slider-icons/forgazobeton.svg', import.meta.url).href},
-        { text:'Клей для плитки',
-          icon: new URL('../assets/images/slider-icons/forplitka.svg', import.meta.url).href},
-        { text:'Цветные кладочные смеси',
-          icon: new URL('../assets/images/slider-icons/kladochnue.svg', import.meta.url).href}]
-  },
-  {
-    img: new URL('../assets/images/slider-7.svg', import.meta.url).href,
-    sub: 'СТРОИТЕЛЬНЫЙ', title: 'ЦЕМЕНТ', city: 'В МЕШКАХ',
-    tags: [
-        { text:'Цемент 25 кг',
-          icon: new URL('../assets/images/slider-icons/cement-icon.svg', import.meta.url).href},
-        { text:'Цемент 40 кг',
-          icon: new URL('../assets/images/slider-icons/cement-icon.svg', import.meta.url).href},
-        { text:'Цемент 50 кг',
-          icon: new URL('../assets/images/slider-icons/cement-icon.svg', import.meta.url).href},
-        { text: 'Цементно-песчаная смесь',
-          icon: new URL('../assets/images/slider-icons/cement-icon.svg', import.meta.url).href}]
-  },
-  {
-    img: new URL('../assets/images/slider-8.svg', import.meta.url).href,
-    sub: 'ПЛИТКА И БРУСТЧАТКА', title: 'ТРОТУАРНАЯ', city: 'В САМАРЕ',
-    tags: [
-        { text:'Тротуарная плитка',
-          icon: new URL('../assets/images/slider-icons/trotyarplitka.svg', import.meta.url).href},
-        { text:'Брусчатка клинкерная',
-          icon: new URL('../assets/images/slider-icons/bruschatka.svg', import.meta.url).href},
-        { text: 'Бордюры',
-          icon: new URL('../assets/images/slider-icons/bordur.svg', import.meta.url).href} ,
-        { text:'Доска террасная',
-          icon: new URL('../assets/images/slider-icons/doskateras.svg', import.meta.url).href}]
-  },
-]
+const sliderImages = import.meta.glob('../assets/images/slider-*.svg', {
+  eager: true, import: 'default',
+})
+const iconImages = import.meta.glob('../assets/images/slider-icons/*.svg', {
+  eager: true, import: 'default',
+})
+const sliderImg = (name) => sliderImages[`../assets/images/${name}`]
+const iconImg = (name) => iconImages[`../assets/images/slider-icons/${name}`]
+const slides = slidesData
+
 // работа стрелок слайдера
 const current = ref(0)
 const prev = () => current.value = (current.value - 1 + slides.length) % slides.length
 const next = () => current.value = (current.value + 1) % slides.length
 // интервал самостоятельного перехода на другой слайд
 let timer
-onMounted(() => { timer = setInterval(next, 5000) })
+onMounted(() => { timer = setInterval(next, 10000) })
 onUnmounted(() => clearInterval(timer))
 
 // форма в слайдере локации
@@ -135,6 +38,72 @@ const locations = [
     'Офис "на Амбаре"',
 ]
 const selectedLocation = ref('Офис "на Садовой"')
+
+// описание магазина
+const description = `ООО «Союз» – более 12 лет продает строителям и организациям города Самары газобетонные блоки гарантированного качества, сделанный по ГОСТам с соблюдением технологии.
+Основной ассортимент компании: блоки кайман, блоки керакам, недорогой кирпич, лицевой кирпич`
+
+const isDescriptionOpen = ref(false)
+
+const unwrapDescription = () => {
+  isDescriptionOpen.value = !isDescriptionOpen.value
+}
+// секция с популярными товарами
+// сами категории в списке
+const popularCategories = [
+    'Кирпич',
+    'Строительные блоки',
+    'Кровля',
+    'Фасад',
+    'Утеплители',
+    'Тротуарная плитка',
+    'Щебень'
+]
+// какая категория активная
+const activeCategorie =ref('Кирпич')
+// наполнение активной категории
+const popularProductsList = {
+  'Кирпич': [
+    {
+      name: 'Цокольный красный кирпич', price: 'от 281,82 ₽/шт.', badge: 'Акция!',
+      img: new URL('../assets/images/popularproducts-icon/cocolred-icon.svg', import.meta.url).href
+    },
+    {
+      name: 'Облицовочный фасадный кирпич', price: '29 ₽/шт.',
+      img: new URL('../assets/images/popularproducts-icon/oblicfasad-icon.svg', import.meta.url).href
+    },
+    {
+      name: 'Силикатный белый кирпич', price: '',
+      img: new URL('../assets/images/popularproducts-icon/silicatwhite-icon.svg', import.meta.url).href
+    },
+    {
+      name: 'Печной кирпич', price: '',
+      img: new URL('../assets/images/popularproducts-icon/pechnoykir-icon.svg', import.meta.url).href
+    },
+    {
+      name: 'Шамотный жаропрочный ...', price: '',
+      img: new URL('../assets/images/popularproducts-icon/shamotjaro-icon.svg', import.meta.url).href
+    },
+  ],
+  'Строительные блоки': [
+
+  ],
+  'Кровля': [
+
+  ],
+  'Фасад': [
+
+  ],
+  'Утеплители': [
+
+  ],
+  'Тротуарная плитка': [
+
+  ],
+  'Щебень': [
+
+  ],
+}
 </script>
 
 <template>
@@ -222,7 +191,7 @@ const selectedLocation = ref('Офис "на Садовой"')
           class="slide"
           :class="{ active: i === current }"
       >
-        <img :src="slide.img" :alt="'slide ' + (i + 1)">
+        <img :src="sliderImg(slide.img)" :alt="'slide ' + (i + 1)">
         <div class="slide-content">
           <div class="slide-text">
             <p class="slide-sub">{{ slide.sub }}</p>
@@ -230,7 +199,7 @@ const selectedLocation = ref('Офис "на Садовой"')
             <p class="slide-city">{{ slide.city }}</p>
             <div class="slide-tags">
             <span v-for="tag in slide.tags" :key="tag.text">
-              <img class="tag-icon" :src="tag.icon" alt="">{{ tag.text }}
+              <img class="tag-icon" :src="iconImg(tag.icon)" alt="">{{ tag.text }}
             </span>
             </div>
           </div>
@@ -269,6 +238,49 @@ const selectedLocation = ref('Офис "на Садовой"')
         :class="{ active: i === current }"
         @click="current = i"
     ></span>
+    </div>
+  </section>
+  <!-- Секция с описанием -->
+  <section class="section-description">
+    <div class="description-text">
+      <h2>ООО Союз - магазин стройматериалов в Самаре</h2>
+      <div v-if="isDescriptionOpen" id="product-description" class="description">
+        <p>{{ description }}</p>
+      </div>
+      <button class="description-btn" @click="unwrapDescription">
+        {{ isDescriptionOpen ? 'Свернуть описание' : 'Развернуть описание'}}
+      </button>
+    </div>
+  </section>
+  <!-- Секция популярных товаров -->
+  <section class="popular-products">
+      <h2 class="popular-title">Популярные товары -</h2>
+    <div class="popular-list">
+      <!-- вкладки в списке -->
+      <div class="popular-tabs">
+        <button
+            v-for="cat in popularCategories"
+            :key="cat"
+            class="popular-tab"
+            :class="{ active: cat === activeCategorie }"
+            @click="activeCategorie = cat">
+          {{ cat }}
+        </button>
+      </div>
+      <!-- карточки с товарами -->
+      <div class="popular-grid">
+        <div
+            v-for="prod in popularProductsList[activeCategorie]"
+            :key="prod.name"
+            class="product-card">
+          <span v-if="prod.badge" class="product-badge">{{ prod.badge }}</span>
+          <img :src="prod.img" :alt="prod.name" class="product-img">
+          <div class="product-info">
+            <p class="product-name">{{ prod.name }}</p>
+            <p v-if="prod.price" class="product-price">{{ prod.price }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -332,7 +344,7 @@ nav.menu {
 .badge-reviews {
   margin-bottom: 11px;
   margin-left: 4px;
-  background: #FF6B35;
+  background: #FC6904;
   color: #fff;
   font-family: Inter;
   font-size: 11px;
@@ -531,7 +543,7 @@ select.numbers {
   top: -18px;
   left: 50%;
   transform: translateX(-50%);
-  background: #FF6B35;
+  background: #FC6904;
   color: #fff;
   font-family: Inter;
   font-size: 11px;
@@ -768,5 +780,147 @@ select.numbers {
 
 .dot.active {
   background: #7F9D87;
+}
+
+/* описание */
+.section-description{
+  padding-left: 110px;
+}
+.description {
+  max-width: 1660px;
+}
+.description-text h2 {
+  font-family: Montserrat;
+  font-size: 24px;
+  color: #333;
+}
+.description p {
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 400;
+  color: #586067;
+  line-height: 26px;
+  text-align: left;
+}
+.description-btn {
+  background: none;
+  border: none;
+  color: #7F9D87;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+/* популярные товары */
+.popular-products {
+  max-width: 1660px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.popular-title {
+  font-family: Montserrat;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 24px;
+}
+.popular-list {
+  display: flex;
+  gap: 24px;
+}
+
+/* вкладки */
+.popular-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  flex-shrink: 0;
+  background: #F7F7F7;
+  border-radius: 12px;
+  padding: 12px;
+  height: fit-content;
+}
+.popular-tab {
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: Montserrat;
+  font-size: 16px;
+  color: #586067;
+  padding: 16px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.popular-tab:hover {
+  background: #ededed;
+}
+.popular-tab.active {
+  background: #fff;
+  font-weight: 700;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* сетка карточек */
+.popular-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-content: start;
+}
+.product-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #EEEEEE;
+  border-radius: 12px;
+  padding: 16px;
+  height: fit-content;
+  transition: box-shadow 0.2s;
+}
+.product-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.product-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #FC6904;
+  color: #fff;
+  font-family: Inter;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.product-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.product-name {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+.product-price {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 700;
+  color: #7F9D87;
+  margin: 0;
 }
 </style>

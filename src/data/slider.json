@@ -1,0 +1,83 @@
+[
+  {
+    "img": "slider-1.svg",
+    "sub": "ВСЕ ВИДЫ", "title": "КИРПИЧА", "city": "В САМАРЕ",
+    "tags": [
+      { "text": "Цокольный", "icon": "cokol-icon.svg" },
+      { "text": "Облицовочный", "icon": "oblic-icon.svg" },
+      { "text": "Печной", "icon": "pechnoi-icon.svg" },
+      { "text": "Шамотный", "icon": "shamot-icon.svg" },
+      { "text": "Ручной формовки", "icon": "ruchnoi-icon.svg" },
+      { "text": "Силикатный", "icon": "silikat-icon.svg" }
+    ]
+  },
+  {
+    "img": "slider-2.svg",
+    "sub": "СТРОИТЕЛЬНЫЕ БЛОКИ", "title": "ГАЗОБЕТОН", "city": "В САМАРЕ",
+    "tags": [
+      { "text": "Для дома", "icon": "forhome-icon.svg" },
+      { "text": "Для бани", "icon": "forbanya-icon.svg" },
+      { "text": "Для перегородок", "icon": "forperegorodki-icon.svg" }
+    ]
+  },
+  {
+    "img": "slider-3.svg",
+    "sub": "СТРОИТЕЛЬНЫЕ БЛОКИ", "title": "КЕРАКАМ И КАЙМАН", "city": "В САМАРЕ",
+    "tags": [
+      { "text": "Не требует утепления", "icon": "uteplenie-icon.svg" },
+      { "text": "Экологически чистые", "icon": "ecoclear.svg" },
+      { "text": "Удобные в монтаже", "icon": "easymontaj.svg" },
+      { "text": "Недорогие", "icon": "nedorogie.svg" }
+    ]
+  },
+  {
+    "img": "slider-4.svg",
+    "sub": "ОБЛИЦОВОЧНАЯ ПЛИТКА", "title": "ДЕКОРОТИВНАЯ И ФАСАДНАЯ", "city": "",
+    "tags": [
+      { "text": "Облицовочные камень для фасада и интерьера", "icon": "forfasade.svg" },
+      { "text": "Фасадная клинкерная плитка", "icon": "fasadeplitka.svg" }
+    ]
+  },
+  {
+    "img": "slider-5.svg",
+    "sub": "НАДЁЖНАЯ И НЕДОРОГАЯ", "title": "КРОВЛЯ", "city": "В САМАРЕ",
+    "tags": [
+      { "text": "Мягкая кровля", "icon": "softcrovlya.svg" },
+      { "text": "Металлочерепица", "icon": "metallocherepica.svg" },
+      { "text": "Минеральная черепица", "icon": "mineralcherepica.svg" },
+      { "text": "Керамическая черепица", "icon": "keramocherepica.svg" }
+    ]
+  },
+  {
+    "img": "slider-6.svg",
+    "sub": "СТРОИТЕЛЬНЫЕ", "title": "СУХИЕ СМЕСИ", "city": "В МЕШКАХ",
+    "tags": [
+      { "text": "Штукатурка", "icon": "shtukaturka.svg" },
+      { "text": "Шпатлевка", "icon": "shaptlevka.svg" },
+      { "text": "Печные смеси", "icon": "pechnue.svg" },
+      { "text": "Клей для газобетона", "icon": "forgazobeton.svg" },
+      { "text": "Клей для плитки", "icon": "forplitka.svg" },
+      { "text": "Цветные кладочные смеси", "icon": "kladochnue.svg" }
+    ]
+  },
+  {
+    "img": "slider-7.svg",
+    "sub": "СТРОИТЕЛЬНЫЙ", "title": "ЦЕМЕНТ", "city": "В МЕШКАХ",
+    "tags": [
+      { "text": "Цемент 25 кг", "icon": "cement-icon.svg" },
+      { "text": "Цемент 40 кг", "icon": "cement-icon.svg" },
+      { "text": "Цемент 50 кг", "icon": "cement-icon.svg" },
+      { "text": "Цементно-песчаная смесь", "icon": "cement-icon.svg" }
+    ]
+  },
+  {
+    "img": "slider-8.svg",
+    "sub": "ПЛИТКА И БРУСТЧАТКА", "title": "ТРОТУАРНАЯ", "city": "В САМАРЕ",
+    "tags": [
+      { "text": "Тротуарная плитка", "icon": "trotyarplitka.svg" },
+      { "text": "Брусчатка клинкерная", "icon": "bruschatka.svg" },
+      { "text": "Бордюры", "icon": "bordur.svg" },
+      { "text": "Доска террасная", "icon": "doskateras.svg" }
+    ]
+  }
+]
