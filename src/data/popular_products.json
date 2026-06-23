@@ -1,0 +1,144 @@
+{
+  "Кирпич": [
+    { "name": "Цокольный красный кирпич",
+      "price": "от 281,82 ₽/шт.",
+      "badge": "Акция!",
+      "img": "cocolred-icon.svg"
+    },
+    { "name": "Облицовочный фасадный кирпич",
+      "price": "29 ₽/шт.",
+      "img":"oblicfasad-icon.svg"
+    },
+    {
+      "name": "Силикатный белый кирпич",
+      "price": "",
+      "img": "silicatwhite-icon.svg"
+    },
+    {
+      "name": "Печной кирпич",
+      "price": "",
+      "img": "pechnoykir-icon.svg"
+    },
+    {
+      "name": "Шамотный жаропрочный ...",
+      "price": "",
+      "img": "shamotjaro-icon.svg"
+    }
+  ],
+  "Строительные блоки": [
+    { "name": "Газобетонный блок",
+      "price": "от 334 ₽/шт.",
+      "badge": "Акция!",
+      "img": "cocolred-icon.svg"
+    },
+    { "name": "Керамический блок",
+      "price": "от 91 ₽/шт.",
+      "img":"oblicfasad-icon.svg"
+    },
+    {
+      "name": "Керамзитобетонный блок",
+      "price": "от 28 ₽/шт.",
+      "img": "silicatwhite-icon.svg"
+    }
+  ],
+  "Кровля": [
+    { "name": "Мягкая кровля",
+      "price": "от 340,10 ₽/шт.",
+      "badge": "Акция!",
+      "img": "cocolred-icon.svg"
+    },
+    { "name": "Минеральная черепица",
+      "price": "от 1 252.30  ₽/м2.",
+      "img":"oblicfasad-icon.svg"
+    },
+    {
+      "name": "Наплавляемая кровля",
+      "price": "от 514.00  ₽/рулон.",
+      "img": "silicatwhite-icon.svg"
+    },
+    {
+      "name": "Металлочерепица",
+      "price": "",
+      "img": "pechnoykir-icon.svg"
+    },
+    {
+      "name": "Керамическая черепица",
+      "price": "",
+      "img": "shamotjaro-icon.svg"
+    }
+  ],
+  "Фасад": [
+    { "name": "Облицовочные камень для фасада и интерьера",
+      "price": "от 281,82 ₽/шт.",
+      "badge": "Акция!",
+      "img": "cocolred-icon.svg"
+    },
+    { "name": "Фасадная клинкерная плитка",
+      "price": "29 ₽/шт.",
+      "img":"oblicfasad-icon.svg"
+    }
+  ],
+  "Утеплители": [
+    { "name": "Утеплитель в плитах",
+      "price": "от 950.00  ₽/шт.",
+      "badge": "Акция!",
+      "img": "cocolred-icon.svg"
+    }
+  ],
+  "Тротуарная плитка": [
+    { "name": "Тротуарная плитка",
+      "price": "от 500 ₽/шт.",
+      "badge": "Акция!",
+      "img": "cocolred-icon.svg"
+    },
+    { "name": "Брусчатка",
+      "price": "от 37 ₽/шт.",
+      "img":"oblicfasad-icon.svg"
+    },
+    {
+      "name": "Террасная доска",
+      "price": "от 300.00 ₽/ пог.м.",
+      "img": "silicatwhite-icon.svg"
+    },
+    {
+      "name": "Бордюры",
+      "price": "от 115.00 ₽/ шт.",
+      "img": "pechnoykir-icon.svg"
+    },
+    {
+      "name": "Ступени",
+      "price": "от 2 580.90 ₽/ м2.",
+      "img": "shamotjaro-icon.svg"
+    },
+    { "name": "Геотекстиль",
+      "price": "от 2 335.00  ₽/рулон.",
+      "img":"oblicfasad-icon.svg"
+    }
+  ],
+  "Щебень": [
+    { "name": "Цокольный красный кирпич",
+      "price": "от 281,82 ₽/шт.",
+      "badge": "Акция!",
+      "img": "cocolred-icon.svg"
+    },
+    { "name": "Облицовочный фасадный кирпич",
+      "price": "29 ₽/шт.",
+      "img":"oblicfasad-icon.svg"
+    },
+    {
+      "name": "Силикатный белый кирпич",
+      "price": "",
+      "img": "silicatwhite-icon.svg"
+    },
+    {
+      "name": "Печной кирпич",
+      "price": "",
+      "img": "pechnoykir-icon.svg"
+    },
+    {
+      "name": "Шамотный жаропрочный ...",
+      "price": "",
+      "img": "shamotjaro-icon.svg"
+    }
+  ]
+}

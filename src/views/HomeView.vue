@@ -2,6 +2,7 @@
 
 import { useRouter } from 'vue-router'
 import slidesData from '../data/slider.json'
+import popularProductsData from '../data/popular_products.json'
 
 const router = useRouter()
 
@@ -62,48 +63,11 @@ const popularCategories = [
 // какая категория активная
 const activeCategorie =ref('Кирпич')
 // наполнение активной категории
-const popularProductsList = {
-  'Кирпич': [
-    {
-      name: 'Цокольный красный кирпич', price: 'от 281,82 ₽/шт.', badge: 'Акция!',
-      img: new URL('../assets/images/popularproducts-icon/cocolred-icon.svg', import.meta.url).href
-    },
-    {
-      name: 'Облицовочный фасадный кирпич', price: '29 ₽/шт.',
-      img: new URL('../assets/images/popularproducts-icon/oblicfasad-icon.svg', import.meta.url).href
-    },
-    {
-      name: 'Силикатный белый кирпич', price: '',
-      img: new URL('../assets/images/popularproducts-icon/silicatwhite-icon.svg', import.meta.url).href
-    },
-    {
-      name: 'Печной кирпич', price: '',
-      img: new URL('../assets/images/popularproducts-icon/pechnoykir-icon.svg', import.meta.url).href
-    },
-    {
-      name: 'Шамотный жаропрочный ...', price: '',
-      img: new URL('../assets/images/popularproducts-icon/shamotjaro-icon.svg', import.meta.url).href
-    },
-  ],
-  'Строительные блоки': [
-
-  ],
-  'Кровля': [
-
-  ],
-  'Фасад': [
-
-  ],
-  'Утеплители': [
-
-  ],
-  'Тротуарная плитка': [
-
-  ],
-  'Щебень': [
-
-  ],
-}
+const productIcon = import.meta.glob('../assets/images/popularproducts-icon/*.svg', {
+  eager: true, import: 'default',
+})
+const productImg = (name) => productIcon[`../assets/images/popularproducts-icon/${name}`]
+const popularProductsList = popularProductsData
 </script>
 
 <template>
@@ -274,7 +238,7 @@ const popularProductsList = {
             :key="prod.name"
             class="product-card">
           <span v-if="prod.badge" class="product-badge">{{ prod.badge }}</span>
-          <img :src="prod.img" :alt="prod.name" class="product-img">
+          <img :src="productImg(prod.img)" :alt="prod.name" class="product-img">
           <div class="product-info">
             <p class="product-name">{{ prod.name }}</p>
             <p v-if="prod.price" class="product-price">{{ prod.price }}</p>
