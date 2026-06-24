@@ -13,7 +13,7 @@ const router = useRouter()
         <a @click="router.push('/about_company')">О компании</a>
         <a @click="router.push('/delivery')">Доставка</a>
         <a class="footer-reviews" @click="router.push('/reviews')">
-          Отзывы <span class="footer-badge">492</span>
+          Отзывы <span class="footer-badge">452</span>
         </a>
         <a @click="router.push('/how_order')">Как сделать заказ</a>
         <a>Контакты</a>

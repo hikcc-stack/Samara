@@ -5,6 +5,7 @@ import Delivery from "@/views/Delivery.vue";
 import Reviews from "@/components/Reviews.vue";
 import HowOrder from "@/views/HowOrder.vue";
 import Contacts from '@/views/Contacts.vue'
+import Catalog from '@/views/Catalog.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/contacts',
       name: 'contacts',
       component: Contacts,
+    },
+    {
+      path: '/catalog',
+      name: 'catalog',
+      component: Catalog,
     },
     {
       path: '/about',

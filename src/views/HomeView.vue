@@ -1,11 +1,11 @@
 <script setup>
 
 import { useRouter } from 'vue-router'
-import slidesData from '../data/slider.json'
-import popularProductsData from '../data/popular_products.json'
-import recData from '../data/recommended_products.json'
-import AppHeader from '../components/AppHeader.vue'
-import ShopsPagePage from '../components/ShopsPage.vue'
+import slidesData from '@/data/slider.json'
+import popularProductsData from '@/data/popular_products.json'
+import recData from '@/data/recommended_products.json'
+import AppHeader from '@/components/AppHeader.vue'
+import ShopsPagePage from '@/components/ShopsPage.vue'
 import AdComp from "@/components/AdComp.vue";
 import Map from "@/components/Map.vue";
 import Footer from "@/components/Footer.vue";
@@ -13,53 +13,57 @@ import Footer from "@/components/Footer.vue";
 const router = useRouter()
 
 // логика слайдера кирпичей
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import Reviews from "@/components/Reviews.vue";
-import ShopsPage from "@/components/ShopsPage.vue";
 
 //наполнение слайдера
-const sliderImages = import.meta.glob('../assets/images/slider-*.svg', {
+const sliderImages = import.meta.glob('../assets/images/slider-*.svg', { //импорт сразу всех изображений для садйдера
+  eager: true, //загрузить сразу 
+  import: 'default', //взять сам путь к картинке
+})
+const iconImages = import.meta.glob('../assets/images/slider-icons/*.svg', { // тоже самое что и сладйеримаджес только с иконками слайдера
   eager: true, import: 'default',
 })
-const iconImages = import.meta.glob('../assets/images/slider-icons/*.svg', {
-  eager: true, import: 'default',
-})
+// функции достают готовый путь картинке по имени из json
 const sliderImg = (name) => sliderImages[`../assets/images/${name}`]
 const iconImg = (name) => iconImages[`../assets/images/slider-icons/${name}`]
-const slides = slidesData
+const slides = slidesData // короткое имя для данных из json
 
 // работа стрелок слайдера
-const current = ref(0)
-const prev = () => current.value = (current.value - 1 + slides.length) % slides.length
-const next = () => current.value = (current.value + 1) % slides.length
+const current = ref(0) // текущий слайд
+const prev = () => current.value = (current.value - 1 + slides.length) % slides.length // предыдущий слайд
+const next = () => current.value = (current.value + 1) % slides.length // следующий слайд
 // интервал самостоятельного перехода на другой слайд
 let timer
 onMounted(() => { timer = setInterval(next, 10000) })
 onUnmounted(() => clearInterval(timer))
 
 // форма в слайдере локации
-const phone = ref('')
+const phone = ref('') // значение поля телефона
 const formOpen = ref(false) // раскрыта ли форма
-const locations = [
+const locations = [ // варианты локаций
     'База "на Алма-Атинской"',
     'База "в Преображенкее"',
     'Офис "на Садовой"',
     'Офис "на Амбаре"',
 ]
-const selectedLocation = ref('Офис "на Садовой"')
+const selectedLocation = ref('Офис "на Садовой"') // то что стоит по умолчанию 
 
 // описание магазина
-const description = `ООО «Союз» – более 12 лет продает строителям и организациям города Самары газобетонные блоки гарантированного качества, сделанный по ГОСТам с соблюдением технологии.
-Основной ассортимент компании: блоки кайман, блоки керакам, недорогой кирпич, лицевой кирпич`
+// первый абзац описания
+const description = `ООО «Союз» – более 12 лет продает строителям и организациям города Самары газобетонные блоки гарантированного качества, сделанный по ГОСТам с соблюдением технологии.`
+// второй абзац описания
+const descriptionMore = `Основной ассортимент компании: блоки кайман, блоки керакам, недорогой кирпич, лицевой кирпич`
 
-const isDescriptionOpen = ref(false)
+const isDescriptionOpen = ref(false)  //развернуто описание или нет
 
+// переключатель развернутого описания
 const unwrapDescription = () => {
   isDescriptionOpen.value = !isDescriptionOpen.value
 }
 // секция с популярными товарами
 // сами категории в списке
-const popularCategories = [
+const popularCategories = [ 
     'Кирпич',
     'Строительные блоки',
     'Кровля',
@@ -71,29 +75,42 @@ const popularCategories = [
 // какая категория активная
 const activeCategorie =ref('Кирпич')
 // наполнение активной категории
-const productIcon = import.meta.glob('../assets/images/popularproducts-icon/*.svg', {
+const productIcon = import.meta.glob('../assets/images/popularproducts-icon/*.svg', { // тоже самое что и у слайлера
   eager: true, import: 'default',
 })
-const productImg = (name) => productIcon[`../assets/images/popularproducts-icon/${name}`]
-const popularProductsList = popularProductsData
+const productImg = (name) => productIcon[`../assets/images/popularproducts-icon/${name}`] // готовый путь к картинке по имени из json
+const popularProductsList = popularProductsData // данные из json
 
 
 // слайдер рекомендаций, новинок, распрадаж
 // картинки рекомендованных товаров
+// анологичное что и у остальных слайдеров и т.д.
 const recImages = import.meta.glob('../assets/images/recommended-products/*.svg', {
   eager: true, import: 'default',
 })
 const recImg = (name) => recImages[`../assets/images/recommended-products/${name}`]
 
 const recommendList = recData
-const recommendTabs = Object.keys(recData)
-const activeRecommend = ref('Рекомендуем')
+const recommendTabs = Object.keys(recData) // названия вкладок из ключей данных(рекомендуем, новинки, распродажа)
+const activeRecommend = ref('Рекомендуем') // активная вкладка
 
 // горизонтальная прокрутка карточек
-const recTrack = ref(null)
-const scrollRec = () => {
-  recTrack.value?.scrollBy({ left: 320, behavior: 'smooth' })
+const recTrack = ref(null) // ссылка на саму ленту товаров на странице
+const atStart = ref(true) // находимся ли мы на самой левой позиции
+const atEnd = ref(false) // находимся ли мы на самой правой позиции
+// пересчитывает положение ленты и показывает либо прячет стрелки
+const recArrows = () => {
+  const element = recTrack.value // берем блок ленты
+  if (!element) return // елси блока нет, выходим
+  atStart.value = element.scrollLeft <= 0 // проверяем на левой ли мы позиции, если да левая стрелка не нужна
+  atEnd.value = element.scrollLeft >= element.scrollWidth - element.clientWidth -1 // проверяем на правой ли мы позиции, если да правая стрелка не нужна
 }
+//прокрутка ленты, elem задает направление 1-вправо, -1-влево
+const scrollRec = (elem = 1) => {
+  recTrack.value?.scrollBy({ left: 320 * elem, behavior: 'smooth' })
+}
+onMounted(() => nextTick(recArrows)) // при монтировании компонента пересчитываем стрелки
+watch(activeRecommend, () => nextTick(recArrows)) // при смене активной вкладки пересчитываем стрелки
 // отзывы слайдер
 // переделано в переиспользуемый компонент
 </script>
@@ -164,8 +181,9 @@ const scrollRec = () => {
   <section class="section-description">
     <div class="description-text">
       <h2>ООО Союз - магазин стройматериалов в Самаре</h2>
-      <div v-if="isDescriptionOpen" id="product-description" class="description">
+      <div class="description">
         <p>{{ description }}</p>
+        <p v-if="isDescriptionOpen" class="description">{{ descriptionMore }}</p>
       </div>
       <button class="description-btn" @click="unwrapDescription">
         {{ isDescriptionOpen ? 'Свернуть описание' : 'Развернуть описание'}}
@@ -225,7 +243,7 @@ const scrollRec = () => {
       </button>
     </div>
     <div class="recommend-wrap">
-      <div class="recommend-track" ref="recTrack">
+      <div class="recommend-track" ref="recTrack" @scroll="recArrows">
         <div
             v-for="prod in recommendList[activeRecommend]"
             :key="prod.name"
@@ -242,7 +260,8 @@ const scrollRec = () => {
           <button class="rec-cart-btn">В корзину</button>
         </div>
       </div>
-      <button class="recommend-arrow" @click="scrollRec">></button>
+      <button class="recommend-arrow left" @click="scrollRec(-1)" v-if="!atStart"><</button>
+      <button class="recommend-arrow right" @click="scrollRec(1)" v-if="!atEnd">></button>
     </div>
   </section>
   <!-- секция отзывов со слайдером -->
@@ -810,7 +829,6 @@ const scrollRec = () => {
   position: absolute;
   top: 50%;
   transform:translateY(-50%) ;
-  right: -20px;
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -824,6 +842,8 @@ const scrollRec = () => {
   align-items: center;
   justify-content: center;
 }
+.recommend-arrow.right { right: -20px; }
+.recommend-arrow.left  { left: -20px; }
 /* отзывы покупателей */
 /* переделано в переиспользуемый компонент */
 </style>

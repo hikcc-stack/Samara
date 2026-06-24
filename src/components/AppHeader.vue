@@ -1,6 +1,15 @@
 <script setup>
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
+
+const catalogOpen = ref(false)   // открыт ли список каталога
+
+// переход в каталог и закрытие списка
+const goToCatalog = () => {
+  catalogOpen.value = false
+  router.push('/catalog')
+}
 </script>
 
 <template>
@@ -59,9 +68,12 @@ const router = useRouter()
   <!--Секция товаров и меню -->
   <section class="catalog-bar">
     <div class="catalog-of-products">
-      <button class="catalog-btn">
+      <button class="catalog-btn" @click="catalogOpen = !catalogOpen">
         <span class="burger">☰</span> Каталог продукции
       </button>
+      <ul class="catalog-menu" v-if="catalogOpen">
+        <li @click="goToCatalog">Строительные материалы</li>
+      </ul>
     </div>
     <nav class="catalog-nav">
       <a href="#">Кирпич</a>
@@ -276,7 +288,32 @@ select.numbers {
   margin: 0 auto;
 }
 .catalog-of-products {
+  position: relative;
   margin-right: 20px;
+}
+.catalog-menu {
+  position: absolute;
+  top: calc(100% + 4px);   
+  left: 0;
+  z-index: 20;            
+  min-width: 262px;        
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;        
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+.catalog-menu li {
+  padding: 12px 24px;
+  font-family: Montserrat;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+.catalog-menu li:hover {
+  background: #f3f3f3;
+  color: #7F9D87;
 }
 .catalog-btn {
   display: flex;
