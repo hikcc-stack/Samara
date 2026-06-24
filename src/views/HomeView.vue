@@ -5,12 +5,17 @@ import slidesData from '../data/slider.json'
 import popularProductsData from '../data/popular_products.json'
 import recData from '../data/recommended_products.json'
 import AppHeader from '../components/AppHeader.vue'
+import ShopsPagePage from '../components/ShopsPage.vue'
+import AdComp from "@/components/AdComp.vue";
+import Map from "@/components/Map.vue";
+import Footer from "@/components/Footer.vue";
 
 const router = useRouter()
 
 // логика слайдера кирпичей
 import { ref, onMounted, onUnmounted } from 'vue'
 import Reviews from "@/components/Reviews.vue";
+import ShopsPage from "@/components/ShopsPage.vue";
 
 //наполнение слайдера
 const sliderImages = import.meta.glob('../assets/images/slider-*.svg', {
@@ -242,7 +247,19 @@ const scrollRec = () => {
   </section>
   <!-- секция отзывов со слайдером -->
   <!-- переделано в переиспользуемый компонент -->
-  <Reviews />
+  <Reviews/>
+  <!-- секция с магазинами
+  переиспользуемый компонент-->
+  <ShopsPagePage/>
+  <!-- секция с рекламой
+  как переиспользуемый компонент -->
+  <AdComp/>
+  <!-- секция с картой
+  как переиспользуемый компонент-->
+  <Map/>
+  <!-- Футер
+  переиспользуемый компонент -->
+  <Footer/>
 </template>
 
 
@@ -661,7 +678,7 @@ const scrollRec = () => {
 }
 .recommend-stock-badge {
   position: absolute;
-  top: 1420px;
+  top: 1490px;
   left: 220px;
   background: #FC6904;
   color: #fff;

@@ -1,6 +1,8 @@
 <script setup>
+import { useRouter } from 'vue-router'
 import revData from "@/data/reviews.json";
 
+const router = useRouter()
 const reviews = revData.items
 const reviewsCount = revData.count
 

@@ -4,6 +4,7 @@ import AboutCompany from "@/views/AboutCompany.vue";
 import Delivery from "@/views/Delivery.vue";
 import Reviews from "@/components/Reviews.vue";
 import HowOrder from "@/views/HowOrder.vue";
+import Contacts from '@/views/Contacts.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/how_order',
       name: 'howOrder',
       component: HowOrder,
+    },
+    {
+      path: '/contacts',
+      name: 'contacts',
+      component: Contacts,
     },
     {
       path: '/about',
