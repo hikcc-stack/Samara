@@ -172,7 +172,7 @@ const totalPages = 27
 
         <!-- сетка карточек -->
         <div class="catalog-grid">
-          <div div v-for="(prod, i) in visibleProducts" :key="i" class="cat-card">
+          <div v-for="(prod, i) in visibleProducts" :key="i" class="cat-card" @click="router.push('/product/' + prod.id)">
             <span v-if="prod.discount" class="cat-discount">{{ prod.discount }}</span>
             <span v-if="prod.badge" class="cat-badge">{{ prod.badge }}</span>
             <img :src="prodImg(prod.img)" :alt="prod.name" class="cat-img">
@@ -188,7 +188,7 @@ const totalPages = 27
                 <span v-if="prod.oldprice2" class="cat-oldprice">{{ prod.oldprice2 }}</span>
               </p>
             </div>
-            <button class="cat-cart-btn">В корзину</button>
+            <button class="cat-cart-btn" @click.stop>В корзину</button>
           </div>
         </div>
         <p v-if="visibleProducts.length === 0" class="no-results">
@@ -407,6 +407,7 @@ const totalPages = 27
   margin-bottom: 32px;
 }
 .cat-card {
+  cursor: pointer;
   position: relative;
   border: 1px solid #EEEEEE;
   border-radius: 12px;
