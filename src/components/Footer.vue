@@ -16,7 +16,7 @@ const router = useRouter()
           Отзывы <span class="footer-badge">452</span>
         </a>
         <a @click="router.push('/how_order')">Как сделать заказ</a>
-        <a>Контакты</a>
+        <a @click="router.push('/contacts')">Контакты</a>
       </div>
 
       <!-- колонка 2 -->
