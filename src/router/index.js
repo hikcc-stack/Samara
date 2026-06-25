@@ -6,6 +6,7 @@ import Reviews from "@/components/Reviews.vue";
 import HowOrder from "@/views/HowOrder.vue";
 import Contacts from '@/views/Contacts.vue'
 import Catalog from '@/views/Catalog.vue'
+import product from  '@/views/productCard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/catalog',
       name: 'catalog',
       component: Catalog,
+    },
+    {
+      path: '/product/:id',
+      name: 'product',
+      component: product,
     },
     {
       path: '/about',
