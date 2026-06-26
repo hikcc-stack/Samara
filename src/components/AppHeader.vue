@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref,onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
@@ -10,6 +10,14 @@ const goToCatalog = () => {
   catalogOpen.value = false
   router.push('/catalog')
 }
+// логика открывания меню с контактами
+
+const contactsOpen = ref(false)
+const closeContacts = (e) => {
+  if (!e.target.closest('.menu-number-list')) contactsOpen.value = false
+}
+onMounted(() => document.addEventListener('click', closeContacts))
+onUnmounted(() => document.removeEventListener('click', closeContacts))
 </script>
 
 <template>
@@ -38,13 +46,57 @@ const goToCatalog = () => {
         </div>
         <img src="../assets/images/Telegram.svg" alt="telegram"/>
         <div class="menu-number-list">
-          <label for="numb">8 (995) 888-08-08</label>
-          <select class="numbers" name="numbers" id="numb">
-
-          </select>
+          <div class="contacts-trigger" @click="contactsOpen = !contactsOpen">
+              <span class="contacts-phone">8(955)888-08-08</span>
+              <span class="contacts-arrow"><</span>
+            <div class="contacts-dropdown" v-if="contactsOpen">
+              <div class="cd-left">
+                <p class="cd-addr"><b>Самара, ул. Садовая, 199</b><br>(вывеска "Мир кирпича")</p>
+                <a class="cd-link">схема проезда</a>
+                <p class="cd-office">
+                  Наш центральный офис с выставочным залом
+                  <img class="tv" src="../assets/images/tv.svg" alt="">
+                </p>
+                <p class="cd-main-phone">+7 (846) 215-15-15</p>
+                <p class="cd-hours">с 8:00 до 19:00 по Самаре<br>менеджер Виктор</p>
+                <div class="icons">
+                  <img src="../assets/images/viber.svg" alt="viber">
+                  <img src="../assets/images/whatsapp.svg" alt="whatsapp">
+                  <img src="../assets/images/tg.svg" alt="telegram">
+                  <img src="../assets/images/email.svg" alt="mail">
+                </div>
+                <a class="cd-email">samara777@samara777.ru</a>
+                <p class="cd-worktime">Режим работы: Понедельник-Пятница с 8:00 до 17:00, суббота и воскресенье — по предварительной договорённости</p>
+                <img src="../assets/images/photo.svg" alt="">
+              </div>
+              <div class="cd-right">
+                <p class="cd-free">Бесплатный звонок с любого номера</p>
+                <p class="cd-big-phone">8 (800) 600-34-35</p>
+                <p class="cd-hours">с 8:00 до 19:00 по всей России</p>
+                <p class="cd-free">Мобильный телефон в Москве</p>
+                <p class="cd-big-phone">+7 (995) 888-08-08</p>
+                <p class="cd-hours">с 8:00 до 19:00 по МСК</p>
+                <p class="cd-shops-title">Адреса магазинов:</p>
+                <ul class="cd-shops">
+                  <li>Самара, ул. Садовая, 199 ›</li>
+                  <li>Самара, Южное шоссе, 5К ›</li>
+                  <li>Самара, ул. Алма-Атинская, 133 ›</li>
+                  <li>Самарская обл., с.Преображенка ›</li>
+                </ul>
+                <button class="cd-callback">Обратный звонок</button>
+                <div class="menegers">
+                  <p>Наши доброжелательные<br>
+                  менеджеры всегда будут рады<br>
+                  ответить на Ваш звонок, письмо, <br>
+                  или лично проконсультировать Вас<br>
+                  в офисах продаж.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
         </div>
       </div>
-    </div>
   </nav>
   <!-- секция с поиском -->
   <section class="search-bar">
@@ -168,9 +220,7 @@ nav.menu {
   align-items: center;
   gap: 6px;
 }
-select.numbers {
-  border: none;
-}
+
 .menu-number-list label {
   font-family: Montserrat;
   font-size: 23px;
@@ -187,6 +237,180 @@ select.numbers {
   font-weight: 400;
   color: #586067;
   white-space: nowrap;
+}
+.menu-number-list {
+  position: relative;
+}
+.contacts-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.contacts-phone {
+  font-family: Montserrat;
+  font-size: 23px;
+  font-weight: 700;
+  color: #7F9D87;
+  white-space: nowrap;
+}
+.contacts-arrow {
+  font-size: 20px;
+  color: #7F9D87;
+  transform: rotate(270deg);
+  transition: transform 0.2s;
+}
+.contacts-arrow.open {
+  transform: rotate(180deg);
+}
+.contacts-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.15);
+  display: flex;
+  gap: 40px;
+  padding: 32px;
+  z-index: 200;
+  width: 620px;
+}
+.cd-left, .cd-right {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.cd-addr {
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 18px;
+  color: #586067;
+  margin: 0;
+}
+.cd-addr br {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  color: #586067;
+}
+.cd-link {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  color: #49A9EF;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.cd-office {
+  display: grid;
+  grid-column: 1;
+  font-family: Inter;
+  font-size: 14px;
+  color: #586067;
+  font-weight: 400;
+  max-width: 280px;
+  margin-bottom: 0;
+}
+.cd-office img {
+  display: grid;
+  grid-column: 2;
+  width: 40px;
+  height: 40px;
+}
+.cd-main-phone {
+  font-family: Montserrat;
+  font-size: 23px;
+  font-weight: 700;
+  color: #7F9D87;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.cd-big-phone {
+  font-family: Montserrat;
+  font-size: 22px;
+  font-weight: 700;
+  color: #7F9D87;
+  margin: 2px 0;
+}
+.cd-hours {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  color: #586067;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+.icons img {
+  width: 32px;
+  height: 32px;
+}
+.cd-free {
+  font-family: Inter;
+  font-size: 13px;
+  color: #333;
+  margin: 8px 0 0;
+}
+.cd-email {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  color: #49A9EF;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.cd-worktime {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 15px;
+  color: #949597;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+.cd-shops-title {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 700;
+  color: #586067;
+  margin: 8px 0 4px;
+}
+.cd-shops {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cd-shops li {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  color: #586067;
+  cursor: pointer;
+}
+.cd-shops li:hover {
+  color: #7F9D87;
+}
+.cd-callback {
+  margin-top: 12px;
+  border: 1px solid #7F9D87;
+  color: #7F9D87;
+  background: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-family: Montserrat;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: center;
+}
+.menegers p {
+  font-family: Inter;
+  font-size: 15px;
+  font-weight: 400;
+  color:#586067;
+  text-align: center;
 }
 /* секция с поиском */
 .search-bar {
