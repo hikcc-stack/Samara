@@ -30,7 +30,7 @@ const similar = computed(() =>
 )
 
 // галлеерея
-const gallery = computed(() => [product.value.img])
+const gallery = computed(() => product.value.images ?? [product.value.img])
 // индекс выбранной миниатюры
 const activeThumb = ref(0)
 
@@ -51,7 +51,8 @@ const description = 'Позволяет строить стены 30 см. Не 
 const priceMode = ref('cash') // активная вкладка цен наличный или безнал
 // три варианта цены первый из json товара остальные образец
 const priceOptions = computed(() => [
-  { price: product.value.price,  perM3: product.value.price2, label: 'Цена самовывозом с завода в г. Самара (пгт. Новосёлки)' },
+  { price: product.value.price,
+    perM3: product.value.price2, label: 'Цена самовывозом с завода в г. Самара (пгт. Новосёлки)' },
   { price: '789,20 ₽/шт.', perM3: '9 540 ₽/м³', label: 'Самовывозом с базы в Самаре или доставка по Самаре' },
   { price: '789,20 ₽/шт.', perM3: '9 540 ₽/м³', label: 'Самовывозом с базы г. Самара или доставка по Самаре' },
 ])
@@ -71,9 +72,8 @@ const qty = ref(1)// количество товара
     </div>
 
     <!-- заголовок над галлерекй-->
-     <div class="product-header">
+     <div class="gallery-header">
       <h1>{{ product.name }}</h1>
-      <p class="producer">производство {{ product.producer }}</p>
       <div class="article-row">
         <span class="article">Артикул: {{ product.id }}</span>
         <span class="fav">♡ в избранное</span>
@@ -87,7 +87,6 @@ const qty = ref(1)// количество товара
                class="thumb" :class="{ active: i === activeThumb }" @click="activeThumb = i">
         </div>
         <div class="main-image">
-          <span v-if="product.discount" class="discount">Скидка {{ product.discount }}</span>
           <img :src="productImg(gallery[activeThumb])" :alt="product.name">
         </div>
       </div>
@@ -129,7 +128,7 @@ const qty = ref(1)// количество товара
           <p class="order-sub">8 (846) 215-15-15 (магазин на Садовой, 199)</p>
           <div class="order-links">
             <a>Показать контакты</a>
-            <a>Заказать обратный звонок</a>
+            <a><span>Заказать обратный звонок</span></a>
           </div>
         </div>
       </div>
@@ -194,6 +193,7 @@ const qty = ref(1)// количество товара
   font-size: 13px;
   color: #888;
   margin-bottom: 24px;
+  text-decoration: underline;
 }
 .links span {
   cursor: pointer;
@@ -238,35 +238,17 @@ const qty = ref(1)// количество товара
   border: 1px solid #eee;
   border-radius: 8px;
 }
-.discount {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #FC6904;
-  color: #fff;
-  font-family: Inter;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 6px;
-}
 
 /* информация о товаре */
-.product-header h1 {
+.gallery-header h1 {
   font-family: Montserrat;
-  font-size: 26px;
+  font-size: 46px;
   font-weight: 700;
-  color: #333;
+  color: #000000;
   margin: 0 0 6px;
 }
-.product-header {
+.gallery-header {
   margin-bottom: 28px;
-}
-.producer {
-  font-family: Inter;
-  font-size: 14px;
-  color: #586067;
-  margin: 0 0 16px;
 }
 .article-row {
   display: flex;
@@ -277,13 +259,17 @@ const qty = ref(1)// количество товара
 .article {
   font-family: Inter;
   font-size: 13px;
-  color: #888;
+  background-color: #f5f6f7;
+  color: #1F1F1F;
+  padding: 15px 6px;
+  border-radius: 15px;
 }
 .fav {
   font-family: Inter;
-  font-size: 13px;
+  font-size: 14px;
   color: #7F9D87;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 /* вкладки и варианты цен */
@@ -293,18 +279,20 @@ const qty = ref(1)// количество товара
   margin-bottom: 16px;
 }
 .price-tabs button {
-  background: none;
+  text-decoration: underline #55535c;
+  border-radius: 15px;
   border: none;
   font-family: Inter;
   font-size: 14px;
-  color: #888;
+  color: #55535c;
   cursor: pointer;
   padding: 0 0 6px;
 }
 .price-tabs button.active {
-  color: #333;
+  padding: 10px 10px;
+  color: #55535c;
   font-weight: 700;
-  border-bottom: 2px solid #7F9D87;
+  background: #f5f6f7;
 }
 .price-options {
   display: flex;
@@ -314,40 +302,45 @@ const qty = ref(1)// количество товара
 .price-option {
   flex: 1;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns:auto auto;
   column-gap: 8px;
   align-items: baseline;
-  border: 1px solid #eee;
   border-radius: 8px;
   padding: 12px;
   cursor: pointer;
 }
-.price-option.active {
-  border-color: #7F9D87;
-}
+
 .price-option input {
-  grid-row: 1 / span 3;
-  align-self: start;
+  width: 20px;
+  grid-column:1;
+  grid-row: 3 ;
+  margin-left: -4px;
   accent-color: #7F9D87;
 }
 .po-price {
+  grid-row: 1;
   font-family: Montserrat;
-  font-size: 20px;
+  font-size: 32px;
   font-weight: 700;
-  color: #333;
+  color: #1F1F1F;
 }
 .po-perm3 {
-  font-family: Inter;
-  font-size: 13px;
-  color: #888;
+  grid-column: 1;
+  grid-row: 2;
+  font-family: Montserrat;
+  font-size: 24px;
+  color: #8B8B8B;
 }
 .po-label {
-  grid-column: 2;
-  font-family: Inter;
-  font-size: 12px;
-  color: #888;
+
+  grid-column: 1;
+  grid-row:3 ;
+  font-family: Montserrat;
+  font-size: 15px;
+  color: #586067;
   line-height: 1.3;
   margin-top: 4px;
+  margin-left: 20px;
 }
 
 /* кнопки действий */
@@ -362,19 +355,21 @@ const qty = ref(1)// количество товара
   color: #fff;
   border: none;
   border-radius: 7px;
-  padding: 14px 28px;
-  font-family: Montserrat;
-  font-size: 15px;
-  font-weight: 600;
+  padding: 20px 12px 20px 13px ;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 400;
   cursor: pointer;
 }
 .qty {
+  font-family: Inter;
+  font-size: 16px;
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid #ddd;
-  border-radius: 7px;
-  padding: 8px 14px;
+  border: 1px solid #D7D7D7;
+  border-radius: 3px;
+  padding: 10px 10px;
 }
 .qty button {
   border: none;
@@ -389,17 +384,18 @@ const qty = ref(1)// количество товара
 }
 .actions-secondary {
   display: flex;
-  gap: 24px;
+  gap: 9px;
   margin-bottom: 28px;
 }
 .link-btn {
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #7F9D87;
   border-radius: 6px;
-  padding: 10px 18px;
-  font-family: Montserrat;
+  padding: 8px 20px 9px 20px;
+  font-family: Inter;
+  font-weight: 400;
   font-size: 14px;
-  color: #586067;
+  color: #7F9D87;
   cursor: pointer;
 }
 /* блок "Сделать заказ" */
@@ -444,7 +440,10 @@ const qty = ref(1)// количество товара
   text-decoration: underline;
   cursor: pointer;
 }
-
+.order-links span {
+  color: #49A9EF;
+  text-decoration: underline #49A9EF;
+}
 /* низ: описание + похожие */
 .product-bottom {
   display: grid;
@@ -454,14 +453,15 @@ const qty = ref(1)// количество товара
 }
 .desc-col h2 {
   font-family: Montserrat;
-  font-size: 22px;
+  font-size: 32px;
   font-weight: 700;
+  color: #000000;
   margin: 0 0 16px;
 }
 .desc-text {
   font-family: Inter;
-  font-size: 14px;
-  color: #586067;
+  font-size: 18px;
+  color: #1F1F1F;
   line-height: 1.6;
   margin: 0 0 16px;
 }
@@ -475,8 +475,9 @@ const qty = ref(1)// количество товара
 }
 .spec-key {
   font-family: Inter;
-  font-size: 14px;
-  color: #888;
+  font-size: 17px;
+  color: #1F1F1F;
+  font-weight: 400;
   flex-shrink: 0;
 }
 .spec-dots {
@@ -487,8 +488,9 @@ const qty = ref(1)// количество товара
 }
 .spec-val {
   font-family: Inter;
-  font-size: 14px;
-  color: #333;
+  font-size: 17px;
+  color: #1F1F1F;
+  font-weight: 400;
   flex-shrink: 0;
   max-width: 320px;
 }
@@ -508,12 +510,21 @@ const qty = ref(1)// количество товара
 
 /* похожие товары */
 .similar-list {
+
+  width: auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 25px;
 }
 .similar-card {
   cursor: pointer;
+}
+.similar h2 {
+  margin-top: 0;
+  font-family: Montserrat;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 26px;
 }
 .similar-card img {
   width: 100%;
@@ -523,31 +534,31 @@ const qty = ref(1)// количество товара
 }
 .similar-name {
   font-family: Montserrat;
-  font-size: 13px;
-  font-weight: 700;
-  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1F1F1F;
   margin: 0 0 6px;
   line-height: 1.3;
 }
 .similar-desc {
   font-family: Inter;
-  font-size: 12px;
-  color: #888;
+  font-size: 16px;
+  color: #606060;
   line-height: 1.4;
   margin: 0 0 8px;
 }
 .similar-price {
   font-family: Montserrat;
-  font-size: 16px;
+  font-size: 26px;
   font-weight: 700;
-  color: #333;
+  color: #1F1F1F;
   margin: 0;
 }
 .similar-old {
-  font-family: Inter;
-  font-size: 12px;
+  font-family: Montserrat;
+  font-size: 20px;
   font-weight: 400;
-  color: #BBB;
+  color: #8B8B8B;
   text-decoration: line-through;
   margin-left: 6px;
 }
