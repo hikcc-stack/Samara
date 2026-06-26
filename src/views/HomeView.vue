@@ -227,7 +227,9 @@ watch(activeRecommend, () => nextTick(recArrows)) // при смене акти�
         <div
             v-for="prod in recommendList[activeRecommend]"
             :key="prod.name"
-            class="rec-card">
+            class="rec-card0"
+            @click="prod.id && router.push('/product/' + prod.id)"
+            style="cursor: pointer">
           <span v-if="prod.discount" class="rec-discount">{{ prod.discount }}</span>
           <span v-if="prod.badge" class="rec-badge">{{ prod.badge }}</span>
           <img :src="recImg(prod.img)" :alt="prod.name" class="rec-img">

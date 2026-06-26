@@ -9,6 +9,9 @@ import AdComp from '@/components/AdComp.vue'
 import Map from '@/components/Map.vue'
 import Footer from '@/components/Footer.vue'
 
+import Consultation from "@/components/Consultation.vue";
+const showConsult = ref(false)
+
 const route = useRoute()
 const router = useRouter()
 
@@ -116,9 +119,10 @@ const qty = ref(1)// количество товара
           </div>
           <span class="qty-unit">ед.</span>
         </div>
+        <Consultation :show="showConsult" @close="showConsult = false" />
         <div class="actions-secondary">
           <button class="link-btn">Купить в 1 клик</button>
-          <button class="link-btn">Нужна консультация</button>
+          <button class="link-btn" @click="showConsult = true">Нужна консультация</button>
           <button class="link-btn">Рассчитать количество</button>
         </div>
 
