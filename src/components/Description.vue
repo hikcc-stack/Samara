@@ -59,4 +59,17 @@ const unwrapDescription = () => {
   padding: 0;
   text-decoration: underline;
 }
+@media (max-width: 600px) {
+  .section-description {
+    padding: 0 16px;         
+  }
+  .description-text h2 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+  .description p {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
 </style>

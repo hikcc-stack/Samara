@@ -21,6 +21,7 @@ onUnmounted(() => document.removeEventListener('click', closeContacts))
 </script>
 
 <template>
+  <div class="header-desktop">
   <nav>
     <div class="menu">
       <div class="menu-right">
@@ -142,9 +143,26 @@ onUnmounted(() => document.removeEventListener('click', closeContacts))
       <a href="#">Товары для сада</a>
     </nav>
   </section>
+  </div>
+  <div class="header-mobile">
+    <div class="mobile-bar">
+      <button class="mobile-catalog">
+        <span class="burger">☰</span> Каталог
+      </button>
+      <img class="mobile-logo" src="../assets/images/logoMobile.svg" alt="Союз">
+      <div class="mobile-actions">
+        <span class="mobile-contacts" @click="router.push('/contacts')">Контакты ▾</span>
+      </div>
+    </div>
+    <form class="mobile-search" action="" method="get">
+      <input name="s" type="search" placeholder="Поиск по названию, бренду ...">
+      <button type="submit"><img src="../assets/images/serach-icon.svg" alt="search"></button>
+    </form>
+  </div>
 </template>
 
 <style scoped>
+.header-mobile { display: none; }
 nav.menu {
   align-content: center;
   align-items: center;
@@ -605,5 +623,81 @@ nav.menu {
   padding: 2px 8px;
   border-radius: 20px;
   white-space: nowrap;
+}
+@media (max-width: 600px){
+  .header-desktop { display: none; }
+  .header-mobile { display: block; }
+   /* зелёная полоса */
+  .mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #7F9D87;
+    padding: 12px 16px;
+  }
+  .mobile-catalog {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .mobile-logo {
+    position: relative;
+    height: 36px;
+    right: 30px;
+  }
+  .mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .mobile-contacts {
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    right: 20px;
+  }
+  /* строка поиска под зелёной полосой */
+  .mobile-search {
+    position: relative;
+    padding: 10px 16px;
+  }
+  .mobile-search input {
+    width: 100%;
+    height: 44px;
+    box-sizing: border-box;
+    padding: 0 48px 0 14px;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    font-family: Inter;
+    font-size: 14px;
+    outline: none;
+  }
+  .mobile-search button {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  .mobile-search button img {
+    width: 20px;
+    height: 20px;
+  }
 }
 </style>

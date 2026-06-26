@@ -113,4 +113,29 @@ const reviewsCount = revData.count
   line-height: 1.6;
   margin: 0;
 }
+@media (max-width: 600px) {
+  .reviews {
+    padding: 16px;
+  }
+  .reviews-head {
+    flex-wrap: wrap;      
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .reviews-title {
+    font-size: 22px;
+  }
+  .reviews-all {
+    flex-basis: 100%;      
+  }
+  .review-card {
+    flex: 0 0 100%;        
+  }
+  .reviews-grid {
+    gap: 16px;
+  }
+  .review-text {
+    font-size: 16px;
+  }
+}
 </style>

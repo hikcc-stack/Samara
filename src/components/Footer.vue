@@ -189,4 +189,40 @@ const router = useRouter()
   width: 54px;
   height: 54px;
 }
+@media (max-width: 600px) {
+  .footer {
+    padding: 32px 16px;
+  }
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+  .footer-col {
+    align-items: center;
+    gap: 14px;
+  }
+  .footer-phone-col {
+    text-align: center;
+  }
+  .footer-phone {
+    font-size: 24px;
+  }
+  .footer-bottom {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+    justify-items: center;
+  }
+  .footer-copy {
+    align-items: center;
+  }
+  .footer-company {
+    font-size: 18px;
+  }
+  .footer-col:nth-child(2),
+  .footer-col:nth-child(3) { 
+    display: none; 
+  }
+}
 </style>

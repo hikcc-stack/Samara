@@ -14,7 +14,7 @@ import Description from "@/components/Description.vue";
 const router = useRouter()
 
 // логика слайдера кирпичей
-import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick, stop } from 'vue'
 import Reviews from "@/components/Reviews.vue";
 
 //наполнение слайдера
@@ -103,6 +103,12 @@ onMounted(() => nextTick(recArrows)) // при монтировании комп
 watch(activeRecommend, () => nextTick(recArrows)) // при смене активной вкладки пересчитываем стрелки
 // отзывы слайдер
 // переделано в переиспользуемый компонент
+
+// добавление рекомендованных в корзину
+const addedRec = ref([])
+const addRec = (prod) => {
+  if (!addedRec.value.includes(prod.name)) addedRec.value.push(prod.name)
+}
 </script>
 
 <template>
@@ -239,7 +245,7 @@ watch(activeRecommend, () => nextTick(recArrows)) // при смене акти�
             <p class="rec-price">{{ prod.price }}</p>
             <p v-if="prod.price2" class="rec-price2">{{ prod.price2 }}</p>
           </div>
-          <button class="rec-cart-btn">В корзину</button>
+          <button class="rec-cart-btn" @click.stop="addRec(prod)"> {{ addedRec.includes(prod.name) ? 'Добавлено' : 'В корзину' }}</button>
         </div>
       </div>
       <button class="recommend-arrow left" @click="scrollRec(-1)" v-if="!atStart"><</button>
@@ -799,4 +805,112 @@ watch(activeRecommend, () => nextTick(recArrows)) // при смене акти�
 .recommend-arrow.left  { left: -20px; }
 /* отзывы покупателей */
 /* переделано в переиспользуемый компонент */
+
+@media (max-width: 600px) {
+
+  .popular-products,
+  .recommend {
+    padding: 16px;
+  }
+  .delivery {
+    margin-left: 0;
+    padding: 0 16px;
+  }
+
+  /* слайдер  */
+  .slider {
+     margin: 0 auto 16px;
+  }
+  .slide > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+   .slide-tags {
+    flex-direction: column;
+    gap: 14px;
+    max-width: 100%;
+    margin-top: 16px;
+  }
+  .slide-content {
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 28px;
+    min-height: 560px;  
+    padding: 28px 16px;
+  }
+  .slide-text{
+    position: static;
+  }
+  .slide-title {
+    font-size: 40px;
+  }
+  .slide-form {
+    max-width: 100%;
+    align-self: stretch;
+  }
+  .slide-form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .slide-form-row input,
+  .slide-form-row button {
+    width: 90%;
+  }
+  /* популярные товары  */
+  .popular-title {
+    font-size: 22px;
+  }
+  .popular-list {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .popular-tabs {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .popular-tab {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  .popular-grid {
+    grid-template-columns: 1fr;
+  }
+  .product-name {
+    font-size: 16px;
+  }
+  .slider-arrow {
+    display: none;
+  }
+  /* доставка и оплата */
+  .delivery-title {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+  .delivery-text p,
+  .blue-link {
+    font-size: 14px;
+  }
+
+  /* рекомендуем  */
+  .recommend-head {
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .recommend-tab {
+    font-size: 18px;
+  }
+  .rec-card {
+    flex: 0 0 220px;   
+  }
+  .recommend-stock-badge {
+    position: static;
+  }
+}
 </style>

@@ -399,4 +399,84 @@ const router = useRouter()
   text-decoration: underline;
   cursor: pointer;
 }
+@media (max-width: 600px) {
+  .ad {
+    margin: 32px auto;
+    padding: 16px;
+  }
+  .ad-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .ad-left {
+    display: contents;
+  }
+  .consult-card   { order: 1; }
+  .advantages-card { order: 2; }
+  .ad-bottom      { order: 3; }
+  .ad-bottom {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .consult-card {
+    padding: 20px;
+  }
+  .consult-title {
+    font-size: 20px;
+  }
+  .consult-text {
+    font-size: 15px;
+  }
+  .consult-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .consult-home {
+    display: none;   
+  }
+  .reviews-card,
+  .tg-card,
+  .advantages-card {
+    padding: 20px;
+  }
+  .reviews-phone {
+    width: 110px;
+    height: 110px;
+    left: 0;
+  }
+  .reviews-card-title,
+  .tg-title,
+  .advantages-title {
+    font-size: 20px;
+  }
+  .reviews-links a,
+  .reviews-card-text,
+  .tg-text,
+  .advantage-name,
+  .advantage-desc,
+  .advantages-links a {
+    font-size: 15px;
+  }
+  .advantage img {
+    width: 40px;
+    height: 40px;
+  }
+  .pink-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px;
+  }
+  .pinkbanner-title {
+    font-size: 22px;
+  }
+  .pinkbanner-buttons {
+    align-items: stretch;
+    width: 100%;
+  }
+  .pinkbanner-btn {
+    width: 100%;
+  }
+}
 </style>

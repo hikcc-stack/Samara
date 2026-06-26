@@ -80,6 +80,12 @@ const visibleProducts = computed(() => {
 // нумерация страниц
 const currentPage = ref(1)
 const totalPages = 27
+
+// какие товары уже по айди
+const addedIds = ref([])
+const addToCart = (prod) => {
+  if (!addedIds.value.includes(prod.id)) addedIds.value.push(prod.id)
+}
 </script>
 
 <template>
@@ -188,24 +194,24 @@ const totalPages = 27
                 <span v-if="prod.oldprice2" class="cat-oldprice">{{ prod.oldprice2 }}</span>
               </p>
             </div>
-            <button class="cat-cart-btn" @click.stop>В корзину</button>
+            <button class="cat-cart-btn" @click.stop="addToCart(prod)">{{ addedIds.includes(prod.id) ? 'Добавлено' : 'В корзину' }}</button>
           </div>
         </div>
         <p v-if="visibleProducts.length === 0" class="no-results">
           По вашему запросу ничего не найдено
         </p>
         <!-- нумерация страниц -->
-        <div class="pagination">
+        <div class="numeration">
           <span
               v-for="n in 4" :key="n"
-              class="page"
+              class="nume"
               :class="{ active: n === currentPage }"
               @click="currentPage = n"
           >{{ n }}</span>
-          <span class="page-dots">......</span>
-          <span class="page" @click="currentPage = totalPages">{{ totalPages }}</span>
-          <a class="page-nav" @click="currentPage > 1 && currentPage--">← Предыдущая</a>
-          <a class="page-nav" @click="currentPage < totalPages && currentPage++">Следующая →</a>
+          <span class="nume-dots">......</span>
+          <span class="nume" @click="currentPage = totalPages">{{ totalPages }}</span>
+          <a class="nume-nav" @click="currentPage > 1 && currentPage--">← Предыдущая</a>
+          <a class="nume-nav" @click="currentPage < totalPages && currentPage++">Следующая →</a>
         </div>
       </div>
     </div>
@@ -502,12 +508,12 @@ const totalPages = 27
 }
 
 /* пагинация */
-.pagination {
+.numeration {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.page {
+.nume {
   width: 36px;
   height: 36px;
   display: flex;
@@ -519,19 +525,61 @@ const totalPages = 27
   color: #586067;
   cursor: pointer;
 }
-.page.active {
+.nume.active {
   background: #7F9D87;
   color: #fff;
 }
-.page-dots {
+.nume-dots {
   color: #888;
 }
-.page-nav {
+.nume-nav {
   font-family: Inter;
   font-size: 14px;
   color: #7F9D87;
   text-decoration: underline;
   cursor: pointer;
   margin-left: 8px;
+}
+@media (max-width: 600px) {
+  .catalog-page {
+    padding: 16px;
+  }
+  .links {
+    margin: 12px 0;        
+  }
+  .top-tabs {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .catalog-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .sidebar {
+    display: none;
+  }
+  .type-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .type-tab {
+    flex-shrink: 0;          
+  }
+  .sort-bar {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .catalog-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .numeration {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nume-nav {
+    margin-left: 0;
+  }
 }
 </style>

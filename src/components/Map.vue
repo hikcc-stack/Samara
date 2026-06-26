@@ -129,4 +129,37 @@ const router = useRouter()
   padding-left: 24px;
   margin-top: 0;
 }
+@media (max-width: 600px) {
+  .map-title {
+    font-size: 22px;
+    padding: 0 16px;
+  }
+  .map-bacground {
+    height: 480px;
+  }
+  .map-cards {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    height: auto;
+    padding: 16px;
+  }
+  .map-card {
+    width: auto;
+    height: auto;
+    margin-bottom: 16px;
+  }
+  .card-pin {
+    margin-top: 2px;
+  }
+  .card-addres p {
+    margin-top: 0;
+    font-size: 14px;
+  }
+  .card-time,
+  .card-phone {
+    font-size: 14px;
+  }
+}
 </style>

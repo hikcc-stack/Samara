@@ -62,6 +62,8 @@ const priceOptions = computed(() => [
 const selectedPrice = ref(0) // индекс выбранного варианта цены 
 
 const qty = ref(1)// количество товара
+
+const added = ref(false) // для добавлеения товара в корзину
 </script>
 
 <template>
@@ -111,7 +113,7 @@ const qty = ref(1)// количество товара
         </div>
 
         <div class="actions">
-          <button class="add-cart">Добавить в корзину</button>
+          <button class="add-cart" @click="added = true">{{ added ? 'Добавлено' : 'Добавить в корзину' }}</button>
           <div class="qty">
             <button @click="qty = Math.max(1, qty - 1)">−</button>
             <span>{{ qty }}</span>
@@ -571,5 +573,71 @@ const qty = ref(1)// количество товара
   font-size: 13px;
   color: #888;
   margin: 2px 0 0;
+}
+@media (max-width: 600px) {
+  .product-page {
+    padding: 16px;
+  }
+  .links {
+    margin-bottom: 16px;
+  }
+  .gallery-header h1 {
+    font-size: 22px;
+  }
+  .product-top {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .price-tabs {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .price-options {
+    flex-direction: column;  
+    gap: 12px;
+  }
+  .po-price { font-size: 26px; }
+  .po-perm3 { font-size: 18px; }
+  .actions {
+    gap: 10px;
+  }
+  .add-cart {
+    flex: 1;
+    padding: 16px 10px;
+    font-size: 16px;
+  }
+  .actions-secondary {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .link-btn {
+    width: 100%;
+  }
+  .product-bottom {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .desc-col h2,
+  .similar h2 {
+    font-size: 22px;
+  }
+  .desc-text {
+    font-size: 15px;
+  }
+  .spec-key,
+  .spec-val {
+    font-size: 14px;
+  }
+  .spec-val {
+    max-width: none;        
+  }
+  .similar-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .similar-name { font-size: 15px; }
+  .similar-desc { font-size: 13px; }
+  .similar-price { font-size: 20px; }
 }
 </style>

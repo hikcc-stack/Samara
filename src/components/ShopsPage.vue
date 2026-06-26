@@ -190,4 +190,21 @@ const router = useRouter()
   width: 32px;
   height: 32px;
 }
+@media (max-width: 600px) {
+  .stores { 
+    padding: 16px; 
+  }
+  .stores-head { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 8px; 
+  }
+  .stores-title { 
+    font-size: 22px; 
+  }
+  .stores-grid { 
+    grid-template-columns: 1fr; 
+    gap: 24px; 
+  }
+}
 </style>
