@@ -144,11 +144,17 @@ onUnmounted(() => document.removeEventListener('click', closeContacts))
     </nav>
   </section>
   </div>
+  <!-- для адаптивки -->
   <div class="header-mobile">
     <div class="mobile-bar">
-      <button class="mobile-catalog">
+    <div>
+      <button class="mobile-catalog" @click="catalogOpen = !catalogOpen" >
         <span class="burger">☰</span> Каталог
       </button>
+      <ul class="catalog-menu" v-if="catalogOpen">
+        <li @click="goToCatalog">Строительные материалы</li>
+      </ul>
+    </div>
       <img class="mobile-logo" src="../assets/images/logoMobile.svg" alt="Союз">
       <div class="mobile-actions">
         <span class="mobile-contacts" @click="router.push('/contacts')">Контакты ▾</span>
@@ -537,7 +543,7 @@ nav.menu {
   position: absolute;
   top: calc(100% + 4px);   
   left: 0;
-  z-index: 20;            
+  z-index: 20;
   min-width: 262px;        
   margin: 0;
   padding: 8px 0;
@@ -698,6 +704,12 @@ nav.menu {
   .mobile-search button img {
     width: 20px;
     height: 20px;
+  }
+  .mobile-catalog-wrap {
+    position: relative;
+  }
+  .mobile-bar {
+    position: relative;
   }
 }
 </style>

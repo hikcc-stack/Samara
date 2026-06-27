@@ -30,7 +30,7 @@ const unwrapDescription = () => {
 
 <style>
 .section-description{
-  padding-left: 110px;
+  margin-top: 0;
 }
 .description {
   max-width: 1660px;

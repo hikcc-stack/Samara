@@ -217,7 +217,7 @@ const addRec = (prod) => {
   <!-- Секция слайдер рекомендаций, новинок и распродажи -->
   <section class="recommend">
     <div class="recommend-head">
-      <span class="recommend-stock-badge">В наличии</span>
+      <!-- <span class="recommend-stock-badge">В наличии</span> -->
       <button
           v-for="tab in recommendTabs"
           :key="tab"
@@ -278,7 +278,6 @@ const addRec = (prod) => {
 
   position: relative;
   max-width: 1660px;
-  margin: 33px auto;
   overflow: visible;
   border-radius: 12px;
 }
